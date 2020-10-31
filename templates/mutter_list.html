@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>tubuyaiter</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+<body class="bg-light">
+    <main role="main" class="container">
+        <div class="d-flex justify-content-between mx-auto p-3 my-3 text-white bg-info rounded shadow-sm col-8">
+            <div class="float-right">
+                <h3>つぶやきの履歴</h3>
+            </div>
+
+            <form class="form-inline" method="get" action="{% url 'mutter_list' %}" >
+                <div class="form-group mx-sm-3 mb-2">
+                    <input class="form-control" type="text" name="keyword" maxlength="255" value="">
+                </div>
+                <button class="btn btn-primary mb-2" type="submit">検索</button>
+            </form>
+        </div>
+        <div class="my-3 p-3 col-8 mx-auto d-flex align-items-center justify-content-center">
+            <button type="button" class="btn btn-primary rounded-pill" data-toggle="modal" data-target="#exampleModal">つぶやく</button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <form id="tweet" method="post" action="{% url 'mutter_list' %}">
+                    {% csrf_token %}
+                      <div class="form-group">
+                        <label for="message_text" class="col-form-label">いまどうしてる:</label>
+                        <textarea class="form-control" id="message_text" name="content"></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                    <button type="submit" form="tweet" class="btn btn-primary">つぶやく</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="my-3 p-3 bg-white rounded shadow-sm col-8 mx-auto">
+            <ul>
+            {% for m in mutters %}
+              {% if forloop.first %}
+                  <div class="pt-3 my-2 pb-3 border">
+                    <a href="{% url 'mutter_detail' mutter_id=m.id %}"><li class="media text-muted pl-2">最新のつぶやき：{{ m.content }}</li></a>
+                  </div>
+              {% else %}
+                  <div class="pt-3 my-2 pb-3 border">
+                    <a href="{% url 'mutter_detail' mutter_id=m.id %}"><li class="media text-muted pl-2">{{ m.content }}</li></a>
+                  </div>
+              {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>tubuyaiter</title>
+</head>
+<body>
+<h3>つぶやきの履歴</h3>
+<form method="get" action="{% url 'mutter_list' %}">
+    <input type="text" name="keyword" maxlength="255" value="">
+    <button type="submit">検索</button>
+</form>
+	<ul>
+	{% for m in mutters %}
+		{% if forloop.first %}
+			<a href="{% url 'mutter_detail' mutter_id=m.id %}">
+				<li>最新のつぶやき: {{ m.content }}</li>
+			</a>
+		{% else %}
+			<a href="{% url 'mutter_detail' mutter_id=m.id %}">
+				<li>{{ m.content }}</li>
+			</a>
+		{% endif %}
+	{% endfor %}
+	</ul>
+</body>
+</html>-->
