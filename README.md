@@ -19,4 +19,4 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
-## プルリクエストのハンズオン
+## プルリクエストのハンズオンのためにメッセージを追記
