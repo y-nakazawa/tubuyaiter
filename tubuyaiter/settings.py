@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2rn!l3lb020%!1cbrukonir(6fmlesuyinmm&rfi^_3zf-w_2)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '*',
@@ -127,3 +128,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+try:
+    from tubuyaiter.local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    import django_heroku
+    django_heroku.settings(locals())
