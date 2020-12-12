@@ -28,7 +28,7 @@
             "user": "nginx",
             "group": "nginx",
             "path": "/var/www/tubuyaiter/",
-            "home": "/var/www/tubuyaiter/env",
+            "home": "/var/www/tubuyaiter/env/",
             "module": "tubuyaiter.wsgi",
             "environment": {
                 "DJANGO_SETTINGS_MODULE": "tubuyaiter.settings",
