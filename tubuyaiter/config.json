@@ -1,0 +1,44 @@
+{
+    "listeners": {
+        "*:80": {
+            "pass": "routes"
+        }
+    },
+
+    "routes": [
+        {
+            "match": {
+                "uri": "/static/*"
+            },
+
+            "action": {
+                "share": "/path/to/app/"
+            }
+        },
+        {
+            "action": {
+                "pass": "applications/django"
+            }
+        }
+    ],
+
+    "applications": {
+        "django": {
+            "type": "python 3",
+            "user": "nginx",
+            "group": "nginx",
+            "path": "/var/www/tubuyaiter/",
+            "home": "/var/www/tubuyaiter/env",
+            "module": "tubuyaiter.wsgi",
+            "environment": {
+                "DJANGO_SETTINGS_MODULE": "tubuyaiter.settings",
+                "DB_ENGINE": "django.db.backends.mysql",
+                "DB_NAME": "tubuyaiter",
+                "DB_HOST": "127.0.0.1",
+                "DB_PORT": "3306",
+                "DB_USER": "root",
+                "DB_PASS": ""
+            }
+        }
+    }
+}
